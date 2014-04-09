@@ -1,0 +1,17 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    overflow: hidden;
+    background-color: #DFE2DB;
+    color: #191919;
+}
+
+.noflick {
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+}
