@@ -8,13 +8,16 @@
         <link rel="stylesheet" type="text/css" href="../lib/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="../lib/brick/brick-1.0.1.css">
     </head>
-    <body>
+    <body ng-controller="RootController as Root">
 
         <x-layout>
             <header>
                 <ng-include src="'partials/header.html'"></ng-include>
             </header>
             <x-deck selected-index="0">
+                <x-card transition-type="fade-scale">
+                    LOADING STUFF...
+                </x-card>                
                 <x-card transition-type="slide-left">
                     <ng-include src="'partials/main.html'"></ng-include>
                 </x-card>
@@ -30,8 +33,18 @@
             </footer>
         </x-layout>
 
+        <script type="text/javascript" src="../lib/pouchdb/dist/pouchdb-nightly.min.js"></script>
         <script type="text/javascript" src="../lib/brick/brick-1.0.1.js"></script>
         <script type="text/javascript" src="../lib/angular/angular.js"></script>
+        <script type="text/javascript" src="../lib/angular-touch/angular-touch.min.js"></script>
+        
         <script type="text/javascript" src="js/app.js"></script>
+        
+        <script type="text/javascript" src="js/controllers/root.js"></script>
+        <script type="text/javascript" src="js/controllers/header.js"></script>
+        
+        <script type="text/javascript" src="js/services/syncService.js"></script>
+        
+        <script type="text/javascript" src="js/directives/deckLauncher.js"></script>
     </body>
 </html>

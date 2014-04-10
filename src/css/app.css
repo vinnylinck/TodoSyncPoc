@@ -15,6 +15,11 @@ html, body {
     backface-visibility:hidden;
     -webkit-backface-visibility:hidden;
 }
+
+.warn {
+    color: #FFF056;
+}
+
 /*************************************/
 x-card {
     min-height: 100%;
@@ -60,3 +65,4 @@ x-card {
     border-bottom: none; 
 }
 
+/*************************************/
