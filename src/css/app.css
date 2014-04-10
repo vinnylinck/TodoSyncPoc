@@ -66,3 +66,47 @@ x-card {
 }
 
 /*************************************/
+.full {
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.aligner {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-sizing: border-box;
+
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+    -moz-box-sizing:border-box;
+
+    display: box;
+    box-orient: vertical;
+    box-pack: center;
+    box-align: center;
+    box-sizing:border-box;
+}
+
+.aligner .item.spacer {
+    height: 12px;
+}
+
+.aligner .item.spacer-2 {
+    height: 24px;
+}
+
+
+.aligner .item.limit-7 {
+    width: 70%;
+    min-width: 70%;
+    max-width: 70%;
+}

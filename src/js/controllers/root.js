@@ -5,22 +5,19 @@
     
     //
     var Root = function () {
-        this.isFullScreen = false;
+        this.fullscreen = true;
     };
     
     //
     Root.prototype.hideBoundaries = function () {
-        this.isFullScreen = true;
+        this.fullscreen = true;
     };
     
     //
     Root.prototype.showBoundaries = function () {
-        this.isFullScreen = false;
+        this.fullscreen = false;
     };
-    
-    // injecting dependencies
-    //Root.$inject = ['$rootScope'];
-    
+            
     // registering controller
     angular.module('TodoSyncApp').controller('RootController', Root);
 }());

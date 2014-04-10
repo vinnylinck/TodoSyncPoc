@@ -5,22 +5,30 @@
 
     // Directive usage restrictions
     var restrictions = 'A',
-
         
-        // directive logic
-        linkFn = function (scope, elm, attrs) {
-            
-        },
-
-
         // direction structure
-        launcher = function () {
+        launcher = function ($window) {
             return {
                 restrict: restrictions,
-                link: linkFn
+                
+                // directive logics
+                link: function linkFn(scope, elm, attrs) {
+                    
+                    // simulating app launcher
+                    $window.setInterval(function launchApp() {
+                        scope.$apply(attrs.deckLauncher);
+                        elm[0].showCard(1);
+                    }, 3500);
+                    
+                    
+                                        
+                }
             };
         };
 
+    
+    // injecting dependencies
+    launcher.$inject = ['$window'];
 
     // registering directive
     angular.module('TodoSyncApp').directive('deckLauncher', launcher);
