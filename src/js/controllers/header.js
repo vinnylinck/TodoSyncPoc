@@ -19,7 +19,14 @@
 
     //
     Header.prototype.add = function () {
-        var t = "Some task: " + new Date().getTime();
+
+        var t = {
+            _id: new Date().toISOString(),
+            title: "Some task: " + new Date().getTime(),
+            complete: false
+        };
+        
+        
         this.saveItem(t);
     };
     
