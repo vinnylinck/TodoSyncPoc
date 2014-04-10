@@ -16,7 +16,7 @@
             <header>
                 <ng-include src="'partials/header.html'"></ng-include>
             </header>
-            <x-deck selected-index="0" deck-launcher="Root.showBoundaries()">
+            <x-deck selected-index="0" deck-launcher="Root.showBoundaries()" ng-controller="ListController as List">
                 <x-card transition-type="fade-scale">
                     <ng-include src="'partials/splash.html'"></ng-include>
                 </x-card>                
@@ -44,8 +44,10 @@
 
         <script type="text/javascript" src="js/controllers/root.js"></script>
         <script type="text/javascript" src="js/controllers/header.js"></script>
+        <script type="text/javascript" src="js/controllers/list.js"></script>
 
-        <script type="text/javascript" src="js/services/syncService.js"></script>
+        <script type="text/javascript" src="js/services/sync.js"></script>
+        <script type="text/javascript" src="js/services/storage.js"></script>
 
         <script type="text/javascript" src="js/directives/deckLauncher.js"></script>
         <script type="text/javascript" src="js/directives/layoutExpander.js"></script>

@@ -4,10 +4,19 @@
     'use strict';
 
     //
-    var Header = function () {
+    var Header = function (storage) {
         this.syncInProgress = false;
+        this.saveItem = function (t) {
+            storage.save(t);
+        };
     };
 
+    //
+    Header.prototype.add = function () {
+        var t = "Some task: " + new Date().getTime();
+        this.saveItem(t);
+    };
+    
     //
     Header.prototype.sync = function () {
         if (!this.syncInProgress) {
@@ -21,7 +30,7 @@
     };
     
     // injecting dependencies
-    //Header.$inject = ['$scope'];
+    Header.$inject = ['StorageService'];
 
     // registering controller
     angular.module('TodoSyncApp').controller('HeaderController', Header);

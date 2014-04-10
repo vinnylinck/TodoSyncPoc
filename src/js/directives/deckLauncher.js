@@ -18,10 +18,7 @@
                     $window.setInterval(function launchApp() {
                         scope.$apply(attrs.deckLauncher);
                         elm[0].showCard(1);
-                    }, 3500);
-                    
-                    
-                                        
+                    }, 350);                
                 }
             };
         };

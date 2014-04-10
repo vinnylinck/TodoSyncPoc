@@ -1,7 +1,7 @@
 <div class="wrap-list">
-    <ul>
-        <li>Some task 1</li>
-        <li>Some task 2</li>
-        <li>Some task 3</li>
+    <ul ng-hide="List.tasks.length === 0">
+        <li ng-repeat="task in List.tasks">
+            <span ng-bind="task"></span>
+        </li>
     </ul>
 </div>
