@@ -7,8 +7,14 @@
         var self = this;
         
         this.items = [];
+       
         this.save = function (t) {
             self.items.push(t);
+            sync.refresh(sync.entities.TASK_LIST, self.items);
+        };
+        
+        this.clear = function () {
+            self.items = [];
             sync.refresh(sync.entities.TASK_LIST, self.items);
         };
         

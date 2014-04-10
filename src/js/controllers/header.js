@@ -6,9 +6,15 @@
     //
     var Header = function (storage) {
         this.syncInProgress = false;
+        
         this.saveItem = function (t) {
             storage.save(t);
         };
+        
+        this.clearItems = function () {
+            storage.clear();
+        };
+        
     };
 
     //
@@ -18,16 +24,10 @@
     };
     
     //
-    Header.prototype.sync = function () {
-        if (!this.syncInProgress) {
-            this.syncInProgress = true;
-        }
+    Header.prototype.clear = function () {
+        this.clearItems();
     };
     
-    //
-    Header.prototype.onSyncStop = function () {
-        this.syncInProgress = false;
-    };
     
     // injecting dependencies
     Header.$inject = ['StorageService'];
