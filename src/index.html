@@ -15,9 +15,15 @@
                 <ng-include src="'partials/header.html'"></ng-include>
             </header>
             <x-deck selected-index="0">
-                <x-card transition-type="slide-left">One</x-card>
-                <x-card transition-type="slide-left">Two</x-card>
-                <x-card transition-type="slide-left">Three</x-card>
+                <x-card transition-type="slide-left">
+                    <ng-include src="'partials/main.html'"></ng-include>
+                </x-card>
+                <x-card transition-type="slide-left">
+                    <ng-include src="'partials/debug.html'"></ng-include>
+                </x-card>
+                <x-card transition-type="slide-left">
+                    <ng-include src="'partials/config.html'"></ng-include>
+                </x-card>
             </x-deck>
             <footer>
                 <ng-include src="'partials/footer.html'"></ng-include>
