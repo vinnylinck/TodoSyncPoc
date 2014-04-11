@@ -8,7 +8,7 @@
 
         // remote DB
         this.inprogress = false;
-        this.refreshInterval = 5;
+        this.refreshInterval = 30;
         this.remoteHost = 'https://vinnylinck:94kf73GS@vinnylinck.cloudant.com/todosyncpoc';
         this.opts = {
             continuous: false,
