@@ -15,7 +15,7 @@
                 link: function linkFn(scope, elm, attrs) {
                     
                     // simulating app launcher
-                    $window.setInterval(function launchApp() {
+                    $window.setTimeout(function launchApp() {
                         scope.$apply(attrs.deckLauncher);
                         elm[0].showCard(1);
                     }, 350);                

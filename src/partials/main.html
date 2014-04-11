@@ -1,6 +1,6 @@
 <div class="wrap-list">
     <ul ng-hide="List.tasks.length === 0">
-        <li ng-repeat="task in List.tasks" ng-class="{ 'checked': task.doc.complete }">
+        <li ng-repeat="task in List.tasks" ng-class="{ 'checked': task.doc.complete }" ng-click="List.markAsComplete(task)">
             <span ng-bind="task.doc.title"></span>
         </li>
     </ul>
