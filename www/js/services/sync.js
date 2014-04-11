@@ -8,7 +8,7 @@
 
         // remote DB
         this.inprogress = false;
-        this.refreshInterval = 30;
+        this.refreshInterval = 25;
         this.remoteHost = 'https://vinnylinck:94kf73GS@vinnylinck.cloudant.com/todosyncpoc';
         this.opts = {
             continuous: false,
@@ -39,13 +39,13 @@
         $window.setInterval(function () {
             if (!self.inprogress) {
                 self.inprogress = true;
-                self.replicate();
+                self.replicateFrom();
             }
         }, self.refreshInterval * 1000);
 
     };
 
-    SyncSvc.prototype.info = function (fn) {
+    SyncSvc.prototype.info = function () {
         var p = this.$q.defer();
         
         this.db.info(function (err, info) {
@@ -69,27 +69,9 @@
     //
     SyncSvc.prototype.replicateFrom = function () {
         this.refresh(this.entities.CLOUD_OPS, -1);
-
         this.db.replicate.from(this.remoteHost, this.opts);
-
         this.refreshAll(this.entities.TASK_LIST);
     };
-
-
-    //
-    SyncSvc.prototype.replicate = function () {
-        try {
-
-            this.replicateTo();
-            this.replicateFrom();
-            console.log('- Replication ended with success!');
-        } catch (e) {
-            console.log('- Failure replicating data with ', this.remoteHost, ' # ', e);
-        } finally {
-            console.log('- Replication ended.');
-        }
-    };
-
 
     //
     SyncSvc.prototype.open = function () {
