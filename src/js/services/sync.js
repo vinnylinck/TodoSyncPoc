@@ -40,6 +40,20 @@
 
     };
 
+    SyncSvc.prototype.info = function (fn) {
+        var p = this.$q.defer();
+        
+        this.db.info(function (err, info) {
+            if (err) {
+                p.reject(err);
+            } else {
+                p.resolve(info);
+            }
+        });
+        
+        return p.promise;
+    };
+    
     //
     SyncSvc.prototype.replicateTo = function () {
         this.refresh(this.entities.CLOUD_OPS, 1);
