@@ -5,17 +5,15 @@
     //
     var Storage = function (sync) {
         var self = this;
-        
-        this.items = [];
        
+        //
         this.save = function (t) {
-            self.items.push(t);
-            sync.refresh(sync.entities.TASK_LIST, self.items);
+            sync.put(sync.entities.TASK_LIST, t);
         };
         
+        //
         this.clear = function () {
-            self.items = [];
-            sync.refresh(sync.entities.TASK_LIST, self.items);
+            sync.removeAll(sync.entities.TASK_LIST);
         };
         
     };

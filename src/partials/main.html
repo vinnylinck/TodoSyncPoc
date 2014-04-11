@@ -1,7 +1,7 @@
 <div class="wrap-list">
     <ul ng-hide="List.tasks.length === 0">
-        <li ng-repeat="task in List.tasks" ng-class="{ 'checked': task.complete }">
-            <span ng-bind="task.title"></span>
+        <li ng-repeat="task in List.tasks" ng-class="{ 'checked': task.doc.complete }">
+            <span ng-bind="task.doc.title"></span>
         </li>
     </ul>
 </div>
