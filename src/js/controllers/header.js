@@ -4,8 +4,11 @@
     'use strict';
 
     //
-    var Header = function (storage) {
+    var Header = function ($scope, storage, sync) {
+        var self = this;
+        
         this.syncInProgress = false;
+        this.syncDirection =  "";
         
         this.saveItem = function (t) {
             storage.save(t);
@@ -14,6 +17,19 @@
         this.clearItems = function () {
             storage.clear();
         };
+        
+        sync.monitor(sync.entities.CLOUD_OPS, function (direction) {
+            console.log(direction);
+            self.syncInProgress = (direction !== 0);
+            
+            if (self.syncInProgress) {
+                self.syncDirection = (direction === 1 ? "-upload" : "-download");
+            } else {
+                self.syncDirection = "";
+            }
+            
+            $scope.$apply();
+        });
         
     };
 
@@ -37,7 +53,7 @@
     
     
     // injecting dependencies
-    Header.$inject = ['StorageService'];
+    Header.$inject = ['$scope', 'StorageService', 'SyncService'];
 
     // registering controller
     angular.module('TodoSyncApp').controller('HeaderController', Header);

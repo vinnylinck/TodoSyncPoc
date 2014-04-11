@@ -1,9 +1,20 @@
-/*global angular, PouchDB*/
+/*global angular, PouchDB, console */
 (function SyncService() {
     'use strict';
 
     //
-    var SyncSvc = function SyncSvc($q, $log) {
+    var SyncSvc = function SyncSvc($q, $log, $window) {
+        var self = this;
+
+        // remote DB
+        this.refreshInterval = 30;
+        this.remoteHost = 'https://vinnylinck:94kf73GS@vinnylinck.cloudant.com/todosyncpoc';
+        this.opts = {
+            continuous: false,
+            complete: function () {
+                self.refresh(self.entities.CLOUD_OPS, 0);
+            }
+        };
 
         // promisses & log
         this.$q = $q;
@@ -18,9 +29,48 @@
 
         // entities to be 'monitored'
         this.entities = {
-            TASK_LIST: 0
+            TASK_LIST: 0,
+            CLOUD_OPS: 1
         };
+
+        // job for import
+        $window.setInterval(function () {
+            self.replicate();
+        }, self.refreshInterval * 1000);
+
     };
+
+    //
+    SyncSvc.prototype.replicateTo = function () {
+        this.refresh(this.entities.CLOUD_OPS, 1);
+
+        this.db.replicate.to(this.remoteHost, this.opts);
+    };
+
+    //
+    SyncSvc.prototype.replicateFrom = function () {
+        this.refresh(this.entities.CLOUD_OPS, -1);
+
+        this.db.replicate.from(this.remoteHost, this.opts);
+
+        this.refreshAll(this.entities.TASK_LIST);
+    };
+
+
+    //
+    SyncSvc.prototype.replicate = function () {
+        try {
+
+            this.replicateTo();
+            this.replicateFrom();
+            console.log('- Replication ended with success!');
+        } catch (e) {
+            console.log('- Failure replicating data with ', this.remoteHost, ' # ', e);
+        } finally {
+            console.log('- Replication ended.');
+        }
+    };
+
 
     //
     SyncSvc.prototype.open = function () {
@@ -101,6 +151,7 @@
         this.db.put(value, function (err, result) {
             if (!err && result.ok) {
                 self.refreshAll(entity);
+                self.replicateTo();
             }
         });
     };
@@ -122,14 +173,15 @@
 
                 // deleting
                 self.db.bulkDocs({docs: bulk}, function (err, response) {
-                    
+
                     if (err) {
-                        self.$log.error('[ERROR]:SyncService.removeAll # ', e);
+                        self.$log.error('[ERROR]:SyncService.removeAll # ', err);
                     } else {
                         self.refreshAll(entity);
+                        self.replicateTo();
                     }
                 });
-                
+
 
             },
 
@@ -140,7 +192,7 @@
     };
 
     // injecting dependencies
-    SyncSvc.$inject = ['$q', '$log'];
+    SyncSvc.$inject = ['$q', '$log', '$window'];
 
     // registering angular service
     angular.module('TodoSyncApp').service('SyncService', SyncSvc);
